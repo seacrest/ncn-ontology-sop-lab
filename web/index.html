@@ -4,41 +4,74 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NCN Ontology SOP Lab</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root { --navy:#1b365d; --teal:#0f6c6c; --slate:#334155; --muted:#64748b; --line:#d6dee8; --bg:#f4f7fa; --card:#fff; --pass:#047857; --fail:#9f1239; --hitl:#b45309; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:"IBM Plex Sans","Segoe UI",Arial,sans-serif; background:var(--bg); color:var(--slate); }
+    header { background:var(--navy); color:#fff; padding:20px 28px 18px; border-bottom:4px solid var(--teal); }
+    header h1 { margin:0 0 4px; font-size:22px; font-weight:650; }
+    header p { margin:0; color:#cbd5e1; font-size:13px; }
+    select { max-width:100%; }
+    .wrap { display:grid; grid-template-columns:280px 1fr 320px; gap:16px; padding:16px; }
+    @media (max-width:1100px) { .wrap { grid-template-columns:1fr; } }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+    h2 { margin:0 0 10px; font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--teal); }
+    button, select { font:inherit; border-radius:8px; border:1px solid var(--line); padding:8px 10px; background:#fff; }
+    button.primary { background:var(--teal); color:#fff; border-color:var(--teal); cursor:pointer; font-weight:600; }
+    button.ghost { cursor:pointer; }
+    .case { width:100%; text-align:left; margin:0 0 8px; cursor:pointer; background:#f8fafc; }
+    .case.active { border-color:var(--teal); background:#ecfdf5; }
+    .meta { font-size:12px; color:var(--muted); margin-top:4px; }
+    .kpis { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:12px; }
+    .kpi { background:#f8fafc; border:1px solid var(--line); border-radius:8px; padding:10px; }
+    .kpi b { display:block; font-size:20px; color:var(--navy); }
+    .kpi span { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+    .path { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 14px; }
+    .chip { font-size:12px; padding:4px 8px; border-radius:999px; border:1px solid var(--line); background:#fff; }
+    .chip.on { background:var(--navy); color:#fff; border-color:var(--navy); }
+    .chip.hitl { background:#fff7ed; color:var(--hitl); border-color:#fdba74; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th, td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+    th { color:var(--muted); font-weight:600; font-size:11px; text-transform:uppercase; }
+    .ok { color:var(--pass); font-weight:650; }
+    .bad { color:var(--fail); font-weight:650; }
+    .warn { color:var(--hitl); font-weight:650; }
+    pre { background:#0f172a; color:#e2e8f0; padding:12px; border-radius:8px; font-size:11px; overflow:auto; max-height:280px; }
+    .row { display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
+    .legend { font-size:12px; color:var(--muted); line-height:1.45; }
+  </style>
 </head>
 <body>
   <header>
     <h1>NCN Ontology SOP Lab</h1>
-    <p>Namespace ncn.otc · SOP-AP-014 invoice 3-way match · ScopeGate below the model · static pack, no ERP calls</p>
+    <p id="subtitle">Enterprise SOP portfolio · ScopeGate below the model · static pack, no live SoR calls</p>
   </header>
   <div class="wrap">
     <aside class="card">
-      <h2>Golden cases</h2>
+      <h2>Department / SOP</h2>
+      <div class="row"><select id="dept"></select></div>
+      <div class="row"><select id="sop"></select></div>
       <div class="row">
-        <button class="primary" id="runAll">Run all</button>
+        <button class="primary" id="runAll">Run SOP</button>
         <button class="ghost" id="runOne">Run selected</button>
+        <button class="ghost" id="runPortfolio">Run portfolio</button>
       </div>
+      <h2>Golden cases</h2>
       <div id="cases"></div>
-      <p class="legend">Click a case, then run. TSR is outcome vs gold label. T3 pay is never on the agent allowlist.</p>
+      <p class="legend">16 departmental SOPs. TSR is outcome vs gold label. T3 verbs stay off the agent allowlist and require HITL.</p>
     </aside>
     <main class="card">
       <h2>Result</h2>
       <div class="kpis" id="kpis"></div>
       <div class="path" id="path"></div>
-      <table>
-        <thead><tr><th>Step</th><th>Tool</th><th>Tier</th><th>Gate</th><th>Result</th></tr></thead>
-        <tbody id="tools"></tbody>
-      </table>
-      <h2 class="mt">Writes</h2>
-      <table>
-        <thead><tr><th>Object</th><th>Field</th><th>Value</th><th>Tier</th></tr></thead>
-        <tbody id="writes"></tbody>
-      </table>
+      <table><thead><tr><th>Step</th><th>Tool</th><th>Tier</th><th>Gate</th><th>Result</th></tr></thead><tbody id="tools"></tbody></table>
+      <h2 style="margin-top:16px">Writes</h2>
+      <table><thead><tr><th>Object</th><th>Field</th><th>Value</th><th>Tier</th></tr></thead><tbody id="writes"></tbody></table>
     </main>
     <aside class="card">
       <h2>Case objects</h2>
       <pre id="objects">Select a case.</pre>
-      <h2 class="mt">Expect vs actual</h2>
+      <h2 style="margin-top:14px">Expect vs actual</h2>
       <pre id="expect">—</pre>
     </aside>
   </div>

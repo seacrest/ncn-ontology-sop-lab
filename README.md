@@ -1,29 +1,28 @@
 # NCN Ontology SOP Lab
 
-Runnable UI for SOP-AP-014 (invoice 3-way match) on the `ncn.otc` ontology. ScopeGate sits below the model. T3 `propose_payment` is never on the agent allowlist.
+Enterprise SOP portfolio on a ScopeGate + ontology walker. T3 verbs stay off the agent allowlist.
 
-## Live
+**Live:** https://cdn.jsdelivr.net/gh/seacrest/ncn-ontology-sop-lab@main/web/index.html
 
-**Open the lab:** https://cdn.jsdelivr.net/gh/seacrest/ncn-ontology-sop-lab@main/web/index.html
+Portfolio bar: **16 SOPs / 50 golden cases / TSR 100% / unowned writes 0**.
 
-Source: https://github.com/seacrest/ncn-ontology-sop-lab
+| SOP | Department | Function |
+|-----|------------|----------|
+| SOP-AP-014 | Finance | AP 3-way match |
+| SOP-AR-022 | Finance | Credit exposure hold |
+| SOP-GL-008 | Finance | Journal materiality |
+| SOP-TR-011 | Treasury | Payment-run dual control |
+| SOP-PR-006 | Procurement | Requisition approval |
+| SOP-VM-003 | Procurement | Vendor onboarding |
+| SOP-SO-015 | Sales | Quote discount |
+| SOP-HR-021 | HR | Overtime exception |
+| SOP-HR-034 | HR | Offboarding revoke |
+| SOP-IT-017 | IT | Privileged access / SoD |
+| SOP-IT-028 | IT | P1 incident escalate |
+| SOP-LG-004 | Legal | Nonstandard clause |
+| SOP-CM-012 | Compliance | DSAR SLA |
+| SOP-QA-010 | Quality | NCR / CAPA |
+| SOP-CS-019 | Customer Service | Refund / goodwill |
+| SOP-RK-005 | Risk | Policy waiver |
 
-Click **Run all**. Golden set TSR should be 100% and unowned writes 0.
-
-| Case | Expect |
-|------|--------|
-| INV-1001 | WRITE_EXCEPTION (price +1.5%) |
-| INV-1002 | HITL_PAY (price +4%) |
-| INV-1003 | HITL_QTY |
-| INV-1004 | CREATE_HOLD |
-| INV-1005 | MATCH_OK |
-
-## Local
-
-```bash
-python3 run.py serve --port 8765
-```
-
-Then http://127.0.0.1:8765/
-
-Official GitHub Pages (`https://seacrest.github.io/ncn-ontology-sop-lab/`) needs one click: repo **Settings → Pages → Source = GitHub Actions**, then re-run the Pages workflow. Until that is enabled, use the jsDelivr URL above.
+Click **Run portfolio** in the lab. Source pack is `web/pack.js` generated from YAML.
