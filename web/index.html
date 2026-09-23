@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NCN Ontology SOP Lab</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>NCN Ontology SOP Lab</h1>
+    <p>Namespace ncn.otc · SOP-AP-014 invoice 3-way match · ScopeGate below the model · static pack, no ERP calls</p>
+  </header>
+  <div class="wrap">
+    <aside class="card">
+      <h2>Golden cases</h2>
+      <div class="row">
+        <button class="primary" id="runAll">Run all</button>
+        <button class="ghost" id="runOne">Run selected</button>
+      </div>
+      <div id="cases"></div>
+      <p class="legend">Click a case, then run. TSR is outcome vs gold label. T3 pay is never on the agent allowlist.</p>
+    </aside>
+    <main class="card">
+      <h2>Result</h2>
+      <div class="kpis" id="kpis"></div>
+      <div class="path" id="path"></div>
+      <table>
+        <thead><tr><th>Step</th><th>Tool</th><th>Tier</th><th>Gate</th><th>Result</th></tr></thead>
+        <tbody id="tools"></tbody>
+      </table>
+      <h2 class="mt">Writes</h2>
+      <table>
+        <thead><tr><th>Object</th><th>Field</th><th>Value</th><th>Tier</th></tr></thead>
+        <tbody id="writes"></tbody>
+      </table>
+    </main>
+    <aside class="card">
+      <h2>Case objects</h2>
+      <pre id="objects">Select a case.</pre>
+      <h2 class="mt">Expect vs actual</h2>
+      <pre id="expect">—</pre>
+    </aside>
+  </div>
+  <script src="pack.js"></script>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
