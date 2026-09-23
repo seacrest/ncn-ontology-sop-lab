@@ -6,6 +6,15 @@ Enterprise SOP portfolio on a ScopeGate + ontology walker. T3 verbs stay off the
 
 Portfolio bar: **16 SOPs / 50 golden cases / TSR 100% / unowned writes 0**.
 
+The browser UI loads a split static pack:
+
+- `web/pack.meta.js` — objects + actions
+- `web/pack.sops.a.js` + `web/pack.sops.b.js` — 16 departmental SOPs
+- `web/pack.cases.a.js` + `web/pack.cases.b.js` — 50 golden cases
+- `web/engine.js` + `web/app.js` — walker + department / SOP / portfolio runner
+
+Click **Run portfolio** in the lab.
+
 | SOP | Department | Function |
 |-----|------------|----------|
 | SOP-AP-014 | Finance | AP 3-way match |
@@ -24,5 +33,3 @@ Portfolio bar: **16 SOPs / 50 golden cases / TSR 100% / unowned writes 0**.
 | SOP-QA-010 | Quality | NCR / CAPA |
 | SOP-CS-019 | Customer Service | Refund / goodwill |
 | SOP-RK-005 | Risk | Policy waiver |
-
-Click **Run portfolio** in the lab. Source pack is `web/pack.js` generated from YAML.
